@@ -1,4 +1,4 @@
-# Character Girl Code v 0.2
+# Character Girl Code v 0.3
 init python:
     class Girl(object):
         '''Player will be able to play as any Girl.
