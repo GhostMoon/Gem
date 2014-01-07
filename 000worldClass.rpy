@@ -38,10 +38,18 @@ init python:
                 else:
                     pass
                     
+        
+        def createGlobalAffection(self, lst, func):
+            '''List -> Dictonary
+             Runs createAffection() on every object in List.'''
+            
+            for g in lst:
+                func
+        
         # time Methods
         #!! might be no need to pass time in. Refrence self.time instead?
         def updateTime(self, time):
-            ''' time -> time
+            '''time -> time
             Returns the next time.'''
         
             if time == "Morning":
@@ -58,9 +66,9 @@ init python:
                 
     # weather Methods
         def updateWeather(self, weather):
-            ''' weather -> weather
+            '''weather -> weather
             Returns the next weather.'''
             
             possible = ["Rainy", "Sunny", "Cloudy", "Windy"]
             
-            return random.choice(possible)
+            return renpy.random.choice(possible)

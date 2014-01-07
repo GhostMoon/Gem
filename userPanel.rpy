@@ -17,7 +17,10 @@ label userControlPanel:
     avatar "Today's date is [World.date]."
     avatar "The Weather is [World.weather]."
     avatar "You carry [World.avatar.gems] Gems."
-    avatar "Your partner's mood is [World.avatar.partner.mood]."
+    $ World.avatar.removePartner()
+    $ World.avatar.removePartner()
+    if World.avatar.partner != None:
+        avatar "Your partner's mood is [World.avatar.partner.mood]."
     avatar "What do you want to do?"
     
     return

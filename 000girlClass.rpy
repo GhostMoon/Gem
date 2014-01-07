@@ -1,37 +1,67 @@
-# Character Girl Code v 0.3
+# Character Girl Code
+
 init python:
     class Girl(object):
-        '''Player will be able to play as any Girl.
-        Girls shares currency and purse attributes.'''
+        '''User will be able to control any Girl object.'''
         
         # Properties
-        listOfGirls = {}  # key is String self.name, value is self
-        #gems = 0
-        purse = []
+        girlDict = {}  # key is String self.name, value is self
+        girlList = []
         
         # Constructor
-        def __init__(self, name='Name', mood='Neutral', stats=None, partner=None, gems=0):
+        def __init__(self, name='Name', mood='Neutral', stats=None, partner=None, gems=0, purse=[], affections={}):
             self.name = name
             self.mood = mood
             self.stats = stats
             self.partner = partner
             self.gems = gems
-            self.listOfGirls[self.name] = self
+            self.purse = purse
+            self.girlDict[self.name] = self
+            self.girlList.append(self)
+            self.affections = affections
             
         # Partner methods
         def addPartner(self, otherGirl):
-            '''otherGirl -> Function
+            '''otherGirl -> Screen
             Assigns otherGirl to be your current partner.'''
             
-            self.partner = otherGirl
-            otherGirl.partner = self
+            # Check to see if you have a partner and if so, terminate that partnership.
+            if self.partner != None:
+                self.partner.partner = None
+                self.partner = otherGirl
+                
+            else:
+                self.partner = otherGirl
+            
+            # Check to see if otherGirl has  a partner and if so, terminate that partnership.
+            if otherGirl.partner != None:
+                otherGirl.partner.partner = None
+                otherGirl.partner = self
+                
+            else:
+                otherGirl.partner = self
             return renpy.say(avatar, "You have a new partner! %s!" % (otherGirl.name))
             
-        def removePartner(self, otherGirl):
-            '''otherGirl -> Function
+        def removePartner(self):
+            '''otherGirl -> Screen
             Removes otherGirl from the partnership.'''
-            self.Partner = None
-            return renpy.say(avatar, "You are no longer partners with her.")
+            
+            if self.partner == None:
+                return renpy.say(avatar, "You don't have a partner.")
+                
+            else:
+                renpy.say(avatar, "You are no longer partners with %s." % (self.partner.name))
+                self.partner.partner = None
+                self.partner = None
+                
+        # Affection methods
+        def createAffection(self):
+            '''List -> Keys
+            Append every object in List as a key in the affections Dictonary except for self.'''
+            
+            for girl in self.girlList:
+                self.affections[girl] = 10
+            self.affections.pop(self)
             
         # Currency methods
         def updateGems(self, factor):
@@ -43,12 +73,5 @@ init python:
         def addToPurse(self, itemObject):
             '''Item -> None
             Adds itemObject to the purse.'''
-            purse.append(item)
+            self.purse.append(item)
             
-        def getListOfGirls(self):
-            '''Dictonary -> Keys(String)
-            Displays all Girls in the game.'''
-            v = self.listOfGirls.keys()
-            return renpy.say(avatar, v)
-            
-    
