@@ -5,7 +5,6 @@ init python:
         '''User will be able to control any Girl object.'''
         
         # Properties
-        girlDict = {}  # key is String self.name, value is self
         girlList = []
         
         # Constructor
@@ -16,7 +15,6 @@ init python:
             self.partner = partner
             self.gems = gems
             self.purse = purse
-            self.girlDict[self.name] = self
             self.girlList.append(self)
             self.affections = affections
             
@@ -58,10 +56,9 @@ init python:
         def createAffection(self):
             '''List -> Keys
             Append every object in List as a key in the affections Dictonary except for self.'''
-            
             for girl in self.girlList:
-                self.affections[girl] = 10
-            self.affections.pop(self)
+                self.affections[girl.name] = [renpy.random.randint(0, 20), girl.name]
+            #self.affections.pop(self.name)
             
         # Currency methods
         def updateGems(self, factor):

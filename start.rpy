@@ -30,11 +30,17 @@ define tara = Character(Tara.name, image="Tara", window_left_padding=150)
 ###==========###
 
 label start:
-    show screen volume_controls
+    show screen attackScreen
+    #show screen volume_controls
     cybele "So this is Crete.\nWhat a intresting place..."
+    python:
+        z = World.avatar.affections.values()
+        t = Tara.affections.values()
+        
+    cybele "[z]"
     tara "Hello there!"
     cybele "Hello?"
-    tara "Hi my name is Tara.\nNice to meet you."
+    tara "Hi my name is Tara.\nNice to meet you. [t]"
     cybele "Nice to meet you to. My name is Cybele."
     tara "Would you like a tour of Crete Cybele?"
     cybele Happy "Absolutely!"
